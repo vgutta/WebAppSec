@@ -1,9 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Chatroom</title>
+        <title>Chat App</title>
+        
+        <style type="text/css">
+            #messages {
+                height: 200px;
+                width: 400px;
+                border-style: solid;
+                margin-bottom: 1em;
+            }
+        </style>
+        
     </head>
     <body>
-        
+        <input type="text" id="author" placeholder="username"/>
+        <button id="submitUsername">Start</button>
+        <div id="messages">
+            <ul id="msg">
+                
+            </ul>
+        </div>
+        <form>
+            <input type="text" id="message"/>
+            <button id="submitButton">Submit</button>
+        </form>
+        <script type="text/javascript" src="index.js"></script>
     </body>
 </html>
