@@ -12,8 +12,8 @@ let loadMessages = function( callback){
     var xhr = new XMLHttpRequest();
     xhr.onload = function(){
         if (this.status == 200){
-            //let msgs = (JSON.parse(this.response));
-            showMsgs(JSON.parse(this.response));
+            let msgs = (JSON.parse(this.response));
+            showMsgs(msgs);
         }
     };
     xhr.open("GET", "chatroom/hi");
