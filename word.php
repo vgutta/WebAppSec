@@ -7,31 +7,46 @@
     //the limit 0, 10 takes the first 10 results.
     // you might want to consider taking more results, implementing "pagination", 
     // ordering by rank, etc.
-    $rack = "ABILOTU";
+    //$rack = "ABILOTU";
+    $rack = "AEIPRST";
+    //PIRATES
     
-    $query = "SELECT rack, words FROM racks WHERE length <= 7 and weight <= 7 order by random() limit 0, 1";
+    //$query = "SELECT rack, words FROM racks WHERE length <= 7 and weight <= 7 order by random() limit 0, 1";
     
+    $results = array();
+    // all words in the rack
     for ($i = 0; $i <= strlen($rack); $i++){
-        echo substr($rack, $i);
-        echo " ";
+        $subword = substr($rack, $i);
+        $subQuery = "SELECT rack, words FROM racks where rack = '$subword'";
+        $statement = $dbhandle->prepare($subQuery);
+        $statement->execute();
+        $subresults = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $results = array_merge($subresults, $results);
+        //echo substr($rack, $i);
+        //echo " ";
     }
     
     //this next line could actually be used to provide user_given input to the query to 
     //avoid SQL injection attacks
-    $statement = $dbhandle->prepare($query);
-    $statement->execute();
+    //$statement = $dbhandle->prepare($query);
+    //$statement->execute();
+    
+    //$test = array(["rack" =>"test","words"=>"test"]);
     
     //The results of the query are typically many rows of data
     //there are several ways of getting the data out, iterating row by row,
     //I chose to get associative arrays inside of a big array
     //this will naturally create a pleasant array of JSON data when I echo in a couple lines
-    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    //$subresults = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    //$results = array_merge($subresults, $results);
     
     //this part is perhaps overkill but I wanted to set the HTTP headers and status code
     //making to this line means everything was great with this request
     header('HTTP/1.1 200 OK');
     //this lets the browser know to expect json
     header('Content-Type: application/json');
+    //echo $subresults;
     //this creates json and gives it back to the browser
     echo json_encode($results);
 ?>
