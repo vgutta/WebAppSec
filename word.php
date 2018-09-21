@@ -9,7 +9,12 @@
     // ordering by rank, etc.
     $rack = "ABILOTU";
     
-    $query = "SELECT rack, words FROM racks";
+    $query = "SELECT rack, words FROM racks WHERE length <= 7 and weight <= 7 order by random() limit 0, 1";
+    
+    for ($i = 0; $i <= strlen($rack); $i++){
+        echo substr($rack, $i);
+        echo " ";
+    }
     
     //this next line could actually be used to provide user_given input to the query to 
     //avoid SQL injection attacks
