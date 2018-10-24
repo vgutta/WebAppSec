@@ -1,6 +1,10 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    ".read": "root.child('admins/'+auth.uid).exists()",
+    ".write": "auth != null",
+      "test":{
+        "$data_id" : {".write": "!data.exists() || !newData.exists()"}
+      },
+    
   }
 }
